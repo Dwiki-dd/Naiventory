@@ -1,10 +1,12 @@
 import { createClient } from '@/lib/supabase/server'
 import { logout } from '@/app/auth/actions'
 import { redirect } from 'next/navigation'
+import { connection } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
+  await connection()
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
